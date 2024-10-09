@@ -1,0 +1,79 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 400,
+    "title": "Yearly Population Change in Australia",
+    "data": {
+      "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/Yearly%20population%20change%20(no.csv"
+    },
+    "layer": [
+      {
+        "mark": "line",
+        "encoding": {
+          "x": {
+            "field": "Year",
+            "type": "temporal",
+            "title": "Year"
+          },
+          "y": {
+            "field": "Population change",
+            "type": "quantitative",
+            "title": "Population Change"
+          },
+          "tooltip": [
+            {"field": "Year", "type": "temporal", "title": "Year"},
+            {"field": "Population change", "type": "quantitative", "title": "Population Change"}
+          ]
+        }
+      },
+      {
+        "mark": "rule",
+        "encoding": {
+          "x": {"field": "Year", "type": "temporal"},
+          "color": {"value": "red"},
+          "opacity": {"value": 0.5}
+        },
+        "data": {
+          "values": [
+            {"Year": "1914-01-01", "text": "WWI starts"},
+            {"Year": "1929-01-01", "text": "Great Depression starts"},
+            {"Year": "1945-01-01", "text": "WWII ends"},
+            {"Year": "2008-01-01", "text": "Global Financial Crisis"},
+            {"Year": "2019-01-01", "text": "COVID-19 pandemic"}
+          ]
+        }
+      },
+       {
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "baseline": "middle",
+          "dx": 5,"dy": -1,
+          "fontSize": 11,
+          "color":  "red"
+        },
+        "encoding": {
+          "x": {"field": "Year", "type": "temporal"},
+          "y": {"field": "y", "type": "quantitative"},
+          "text": {"field": "text", "type": "nominal"},
+          "tooltip": [
+            {"field": "text", "type": "nominal", "title": "Event Description"},
+            {"field": "Year", "type": "temporal", "title": "Year of Event"},
+            {"field": "y", "type": "quantitative", "title": "Population Change at Event"}
+          ]
+        },
+        "data": {
+          "values": [
+            {"Year": "1914-01-01", "y": 180000, "text": "WWI starts"},
+            {"Year": "1929-01-01", "y": 130000, "text": "Great Depression starts"},
+            {"Year": "1945-01-01", "y": 60000, "text": "WWII ends"},
+            {"Year": "2008-01-01", "y": 450000, "text": "Global Financial Crisis"},
+            {"Year": "2019-01-01", "y": 400000, "text": "COVID-19 pandemic"}
+          ]
+        }
+      }
+    ],
+    "config": {
+      "axis": {"grid": false}
+    }
+  }

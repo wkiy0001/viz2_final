@@ -1,0 +1,98 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "params": [
+      {
+        "name": "selectedState",
+        "value": {"state": "New South Wales", "center": [145.612793, -31.840233]},
+        "bind": {
+          "input": "select",
+          "options": [
+            {"state": "New South Wales", "center": [145.612793, -25.840233]},
+            {"state": "Victoria", "center": [144.9646, -33.0201]},
+            {"state": "Queensland", "center": [142.702789, -15.917574]},
+            {"state": "South Australia", "center": [136.209152, -26.5]},
+            {"state": "Western Australia", "center": [117.793221, -23.042261]},
+            {"state": "Tasmania", "center": [146.8087, -38.0409]},
+            {"state": "Northern Territory", "center": [132.550964, -14.491411]},
+            {"state": "Australian Capital Territory", "center": [149.0124, -30.4735]}
+          ],
+          "labels": [
+            "New South Wales", "Victoria", "Queensland", "South Australia",
+            "Western Australia", "Tasmania", "Northern Territory",
+            "Australian Capital Territory"
+          ],
+          "name": "Select State: "
+        }
+      },
+      {
+        "name": "selectedYear",
+        "value": 2023,
+        "bind": {
+          "input": "range",
+          "min": 2013,
+          "max": 2023,
+          "step": 1,
+          "name": "Select Year: "
+        }
+      }
+    ],
+        "width": 700,
+        "height": 400,
+        "title": "Population Pyramid",
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/age_group_summary.csv"
+        },
+        "transform": [
+          {"filter": "datum.Year == selectedYear && datum.Region == selectedState.state"},
+          {
+            "calculate": "datum.Sex == 'Male' ? -datum.Total : datum.Total",
+            "as": "signed_total"
+          }
+        ],
+        "layer": [
+          {
+            "mark": {"type": "bar"},
+            "encoding": {
+              "y": {
+                "field": "Age",
+                "type": "ordinal",
+                "sort": [
+                  "85 and over", "80-84", "75-79", "70-74", "65-69", "60-64", "55-59",
+                  "50-54", "45-49", "40-44", "35-39", "30-34", "25-29", "20-24",
+                  "15-19", "10-14", "5-9", "0-4"
+                ],
+                "axis": {"title": "Age Group"}
+              },
+              "x": {
+                "field": "signed_total",
+                "type": "quantitative",
+                "axis": {"title": "Population"}
+              },
+              "color": {
+                "field": "Sex",
+                "type": "nominal",
+                "scale": {
+                  "domain": ["Male", "Female"],
+                  "range": ["#3366cc", "#dc3912"]
+                },
+                "legend": {"title": "Gender"}
+              },
+              "tooltip": [
+                {"field": "Age", "type": "ordinal", "title": "Age Group"},
+                {"field": "Sex", "type": "nominal", "title": "Gender"},
+                {"field": "Total", "type": "quantitative", "title": "Population", "format": ".0f"}
+              ]
+            }
+          },
+          {
+            "mark": "rule",
+            "encoding": {
+              "x": {"value": 0},
+              "color": {"value": "black"},
+              "size": {"value": 1}
+            }
+          }
+        ]
+      
+    
+  }

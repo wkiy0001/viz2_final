@@ -1,0 +1,71 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "params": [
+      {
+        "name": "selectedState",
+        "value": "New South Wales",
+        "bind": {
+          "input": "select",
+          "options": [
+            "New South Wales",
+            "Victoria",
+            "Queensland",
+            "South Australia",
+            "Western Australia",
+            "Tasmania",
+            "Northern Territory",
+            "Australian Capital Territory"
+          ],
+          "name": "Select State: "
+        }
+      }
+    ],
+        "title": "Population Growth Components by Year",
+        "width": 800,
+        "height": 300,
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/Population_by_State_Grouped_Year.csv"
+        },
+        "transform": [
+          {
+            "fold": [
+              "Natural_Increase",
+              "Net_Overseas_Migration",
+              "Net_Interstate_Migration"
+            ],
+            "as": ["Component", "Value"]
+          },
+          {"filter": "datum.State == selectedState && datum.Year >= 2013"}
+        ],
+        "layer": [
+          {
+            "mark": "line",
+            "encoding": {
+              "x": {
+                "field": "Year",
+                "type": "quantitative",
+                "title": "Year",
+                "scale": {"domain": [2013, 2023]},
+                "axis": {"format": "d"}
+              },
+              "y": {
+                "field": "Value",
+                "type": "quantitative",
+                "title": "Population Change"
+              },
+              "color": {
+                "field": "Component",
+                "type": "nominal",
+                "title": "Component of Population Growth",
+                "legend": {"orient": "bottom"}
+              },
+              "tooltip": [
+                {"field": "State", "type": "nominal", "title": "State"},
+                {"field": "Component", "type": "nominal", "title": "Component"},
+                {"field": "Year", "type": "quantitative", "title": "Year"},
+                {"field": "Value", "type": "quantitative", "title": "Value"}
+              ]
+            }
+          }
+        ]
+  }

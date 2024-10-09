@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Population Visualization Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #1a237e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: #1a237e;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .dashboard-part {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .visualization,
+        .text-box {
+            flex: 1;
+        }
+
+        .text-box {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            /* Aligns vertically center */
+            justify-content: center;
+            /* Aligns horizontally center */
+            font-size: 1.1em;
+            /* Larger font size */
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-part {
+                flex-direction: row;
+            }
+
+            .visualization,
+            .text-box {
+                margin-right: 0;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Australia Population Visualization</h1>
+    </header>
+    <div class="container">
+        <h2>Population Overview since 1980</h2>
+        <p>Since 1901, Australia's population has substantially increased both nationally and at the state and
+            territory level.Australia’s 2021 population is 6.8 times larger than in 1901, increasing from 3.8 to 25.7
+            million.The national population has grown every year, excluding WWI, since 1901.The highest net population
+            growth occurred in 2023.
+
+        </p>
+        <div class="dashboard-part">
+            <div id="vis4" class="visualization"></div>
+
+        </div>
+        <h2>Focusing on Population Trends from 2013 to 2023</h2>
+        <p><strong>Net overseas migration</strong> has been a significant driver of Australia's population
+            growth, accounting for
+            over half of the total increase throughout the period observed. The numbers rose dramatically from a
+            net inflow of 30,000 individuals in 1992–93 to 241,000 in 2018–19. However, the COVID-19 pandemic
+            brought unprecedented changes with international border closures leading to the first net outflow
+            since World War II, recording a decrease of 85,000 in 2020–21. Concurrently, <strong>natural
+                increase</strong> (births
+            minus deaths) contributed nearly half of the demographic growth, although it has seen a decline—from
+            139,000 individuals in 1992–93 to 106,000 in 2022–23. This shift reflects the decreasing fertility
+            rates, down from 1.86 to 1.58 babies per woman over the same timeframe, and an ageing population, as
+            the number of deaths has begun to surpass the number of births.
+        </p>
+        <div class="dashboard-part">
+            <div id="vis1" class="visualization"></div>
+        </div>
+
+        <h2>Detailed State Analysis</h2>
+        <p>Australia’s capital cities tend to be younger and age more slowly than regional areas.
+            This is mainly because capital cities have historically attracted a larger share of overseas
+            migrants,
+            who tend to be younger than the overall population.
+        </p>
+        <div class="dashboard-part">
+            <div id="vis2" class="visualization"></div>
+
+
+        </div>
+        <p>Since its federation, Australia has experienced significant aging across its population, marked by a
+            gradual increase in the median age from 22.5 years in 1901 to 38.4 years in 2023. Notably, females
+            have consistently outnumbered males since 1978,
+            reflecting broader demographic trends.<br>Over the years, the 5-9 years age group has seen the
+            largest
+            decrease as a proportion of the total population, while the 60-64 age group has witnessed the most
+            substantial increase. </p>
+        <div class="dashboard-part">
+            <div id="vis5" class="visualization"></div>
+        </div>
+        <p><strong>Net overseas migration</strong> has been a significant factor in Australia's population
+            growth, particularly
+            before the COVID-19 pandemic. However, the pandemic led to the first net outflow of -85,000 in
+            2020-21 due to border restrictions. As restrictions eased,
+            migration rebounded to 204,000 in 2021-22 and surged to 528,000 by 2022-23.<br><strong>Natural
+                increase</strong>
+            has also played a role, although its impact has diminished relative to total
+            population growth. Fertility rates have dropped from 1.86 in 1992-93 to 1.58 in 2022-23, with life
+            expectancy increasing.
+            <br><strong>Internal migration</strong> has historically been high in Australia but saw
+            significant
+            reductions during the
+            pandemic. Movement between states fell sharply in 2020, only partially recovering by 2022.
+        </p>
+        <div class="dashboard-part">
+            <div id="vis3" class="visualization"></div>
+        </div>
+    </div>
+
+    <script>
+        async function embedVegaLite(specUrl, elementId) {
+            try {
+                const response = await fetch(specUrl);
+                const spec = await response.json();
+                vegaEmbed('#' + elementId, spec, { actions: false });
+            } catch (error) {
+                console.error('Error loading visualization:', error);
+                document.getElementById(elementId).innerHTML = 'Error loading visualization';
+            }
+        }
+
+        embedVegaLite('interactive_map.json', 'vis1');
+        embedVegaLite('lga_map.json', 'vis2');
+        embedVegaLite('growth_state.json', 'vis3');
+        embedVegaLite('yearly_population.json', 'vis4');
+        embedVegaLite('population_pyramid.json', 'vis5');
+    </script>
+</body>
+
+</html>

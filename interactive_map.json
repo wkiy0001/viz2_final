@@ -1,0 +1,255 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "vconcat": [
+      {
+        "width": 700,
+        "height": 450,
+        "title": "Average Population of Australian States and Territories",
+        "projection": {"type": "mercator", "scale": 650, "center": [135, -10]},
+        "layer": [
+          {
+            "data": {
+              "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/output.json",
+              "format": {
+                "type": "topojson",
+                "feature": "australia-with-states_782"
+              }
+            },
+            "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+          },
+          {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+              "format": {"type": "topojson", "feature": "oceans"}
+            },
+            "mark": {"type": "geoshape", "fill": "skyblue"}
+          },
+          {
+            "data": {
+              "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/Population_Persons_by_State_Year.csv"
+            },
+            "transform": [
+              {"filter": {"param": "brush"}},
+              {
+                "groupby": ["State"],
+                "aggregate": [
+                  {
+                    "op": "mean",
+                    "field": "Population",
+                    "as": "AveragePopulation"
+                  },
+                  {"op": "min", "field": "Year", "as": "StartYear"},
+                  {"op": "max", "field": "Year", "as": "EndYear"}
+                ]
+              },
+              {
+                "lookup": "State",
+                "from": {
+                  "data": {
+                    "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/output.json",
+                    "format": {
+                      "type": "topojson",
+                      "feature": "australia-with-states_782"
+                    }
+                  },
+                  "key": "properties.STATE_NAME"
+                },
+                "as": "geo"
+              }
+            ],
+            "mark": {"type": "geoshape", "stroke": "white"},
+            "encoding": {
+              "shape": {"field": "geo", "type": "geojson"},
+              "color": {
+                "field": "AveragePopulation",
+                "type": "quantitative",
+                "title": "Avg Population",
+                "scale": {
+                  "domain": [200000, 9000000],
+                  "range": ["#e5f5e0", "#31a354"]
+                }
+              },
+              "tooltip": [
+                {"field": "State", "type": "nominal", "title": "State/Territory"},
+                {
+                  "field": "AveragePopulation",
+                  "type": "quantitative",
+                  "title": "Average Population",
+                  "format": ",.0f"
+                },
+                {
+                  "field": "StartYear",
+                  "type": "quantitative",
+                  "title": "Start Year"
+                },
+                {"field": "EndYear", "type": "quantitative", "title": "End Year"}
+              ]
+            }
+          },
+          {
+            "data": {
+              "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+              "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+            },
+            "mark": {"type": "geoshape", "fill": null, "stroke": "royalblue"}
+          },
+          {
+            "data": {
+              "values": [
+                {"state": "NSW", "center": [145.612793, -32.840233]},
+                {"state": "Vic.", "center": [144.9646, -37.8201]},
+                {"state": "Qld", "center": [144.702789, -23.917574]},
+                {"state": "SA", "center": [136.209152, -31.5]},
+                {"state": "WA", "center": [122.793221, -26.042261]},
+                {"state": "Tas.", "center": [146.8087, -42.5409]},
+                {"state": "NT", "center": [133.550964, -21.491411]},
+                {"state": "ACT", "center": [149.0124, -35.4735]}
+              ]
+            },
+            "mark": {
+              "type": "text",
+              "align": "center",
+              "dy": -10,
+              "fontSize": 12,
+              "fontWeight": "normal",
+              "color": "black"
+            },
+            "encoding": {
+              "longitude": {"field": "center[0]", "type": "quantitative"},
+              "latitude": {"field": "center[1]", "type": "quantitative"},
+              "text": {"field": "state", "type": "nominal"}
+            }
+          }
+        ]
+      },
+      {
+        "title": "Use this line chart to select a period of time",
+        "width": 700,
+        "height": 100,
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/Population_by_State_Grouped_Year.csv"
+        },
+        "transform": [
+          {
+            "fold": ["Natural_Increase", "Net_Overseas_Migration"],
+            "as": ["Component", "Value"]
+          },
+          {"filter": "datum.Year >= 2013"}
+        ],
+        "layer": [
+          {
+            "mark": "line",
+            "encoding": {
+              "x": {
+                "field": "Year",
+                "type": "quantitative",
+                "title": "Year",
+                "scale": {"domain": [2013, 2023]},
+                "axis": {"format": "d"}
+              },
+              "y": {
+                "field": "Value",
+                "type": "quantitative",
+                "title": "Population Change"
+              },
+              "color": {
+                "field": "Component",
+                "type": "nominal",
+                "title": "Component of Population Growth",
+                "legend": {"orient": "bottom"}
+              },
+              "tooltip": [
+                {"field": "Component", "type": "nominal", "title": "Component"},
+                {"field": "Year", "type": "quantitative", "title": "Year"},
+                {"field": "Value", "type": "quantitative", "title": "Value"}
+              ]
+            }
+          },
+          {
+            "mark": "rect",
+            "selection": {
+              "brush": {
+                "type": "interval",
+                "encodings": ["x"],
+                "scale": {"domain": [2013, 2023]}
+              }
+            },
+            "encoding": {
+              "x": {
+                "field": "Year",
+                "type": "quantitative",
+                "scale": {"domain": [2013, 2023]}
+              },
+              "opacity": {
+                "condition": {"selection": "brush", "value": 0},
+                "value": 0
+              }
+            }
+          }
+        ]
+      },
+       {
+        "width": 700,
+        "height": 300,
+        "title": "Total Population Growth Components by State in Australia",
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/Population_by_State_Grouped_Year.csv"
+        },
+        "transform": [
+          {"filter": {"param": "brush"}},
+          {
+            "aggregate": [
+              {"op": "sum", "field": "Natural_Increase", "as": "Natural_Increase"},
+              {"op": "sum", "field": "Net_Interstate_Migration", "as": "Net_Interstate_Migration"},
+              {"op": "sum", "field": "Net_Overseas_Migration", "as": "Net_Overseas_Migration"},
+              {"op": "min", "field": "Year", "as": "StartYear"},
+              {"op": "max", "field": "Year", "as": "EndYear"}
+            ],
+            "groupby": ["State"]
+          },
+          {
+            "fold": ["Natural_Increase", "Net_Interstate_Migration", "Net_Overseas_Migration"],
+            "as": ["Component", "Value"]
+          }
+        ],
+        "mark": "bar",
+        "encoding": {
+          "x": {
+            "field": "State",
+            "type": "nominal",
+            "axis": {"title": "State", "labelAngle": -45}
+          },
+          "y": {
+            "field": "Value",
+            "type": "quantitative",
+            "axis": {"title": "Total Population Change"}
+          },
+          "xOffset": {"field": "Component", "type": "nominal"},
+          "color": {
+            "field": "Component",
+            "type": "nominal",
+            "scale": {
+              "domain": ["Natural_Increase", "Net_Interstate_Migration", "Net_Overseas_Migration"],
+              "range": ["#ff7f0e", "#404080", "#69b3a2"]
+            },
+            "legend": {
+              "title": "Growth Component",
+              "orient": "right"
+            }
+          },
+          "tooltip": [
+            {"field": "State", "type": "nominal"},
+            {"field": "Component", "type": "nominal"},
+            {
+              "field": "Value",
+              "type": "quantitative",
+              "format": ",.0f",
+              "title": "Total Change"
+            },
+            {"field": "StartYear", "type": "quantitative", "title": "Start Year"},
+            {"field": "EndYear", "type": "quantitative", "title": "End Year"}
+          ]
+        }
+      }
+    ]
+  }

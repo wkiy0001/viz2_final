@@ -1,0 +1,196 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 600,
+    "title": "Population of Australian States and Territories",
+    "params": [
+      {
+        "name": "selectedState",
+        "value": {"state": "New South Wales", "center": [145.612793, -31.840233]},
+        "bind": {
+          "input": "select",
+          "options": [
+            {"state": "New South Wales", "center": [145.612793, -31.840233]},
+            {"state": "Victoria", "center": [144.9646, -37.0201]},
+            {"state": "Queensland", "center": [142.702789, -20.917574]},
+            {"state": "South Australia", "center": [136.209152, -31.5]},
+            {"state": "Western Australia", "center": [117.793221, -25.042261]},
+            {"state": "Tasmania", "center": [146.8087, -42.0409]},
+            {"state": "Northern Territory", "center": [132.550964, -19.491411]},
+            {
+              "state": "Australian Capital Territory",
+              "center": [149.0124, -35.4735]
+            }
+          ],
+          "labels": [
+            "New South Wales",
+            "Victoria",
+            "Queensland",
+            "South Australia",
+            "Western Australia",
+            "Tasmania",
+            "Northern Territory",
+            "Australian Capital Territory"
+          ],
+          "name": "Select State: "
+        }
+      },
+      {
+        "name": "selectedYear",
+        "value": 2023,
+        "bind": {
+          "input": "range",
+          "min": 2013,
+          "max": 2023,
+          "step": 1,
+          "name": "Select Year: "
+        }
+      },
+      {
+        "name": "zoom_level",
+        "value": 2800,
+        "bind": {
+          "input": "range",
+          "min": 2000,
+          "max": 4000,
+          "step": 100,
+          "name": "Zoom: "
+        }
+      }
+    ],
+    "projection": {
+      "type": "equirectangular",
+      "center": {"expr": "selectedState.center"},
+      "scale": {"expr": "zoom_level"}
+    },
+    "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/output%20(3).json",
+          "format": {
+            "type": "topojson",
+            "feature": "georef-australia-local-government-area@public"
+          }
+        },
+        "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "grey"}
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+          "format": {"type": "topojson", "feature": "oceans"}
+        },
+        "mark": {"type": "geoshape", "fill": "skyblue"}
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/population_region.csv"
+        },
+        "transform": [
+          {"filter": "datum.TimePeriod == selectedYear"},
+          {
+            "lookup": "Region",
+            "from": {
+              "data": {
+                "url": "https://raw.githubusercontent.com/wkiy0001/3179hw/refs/heads/main/output%20(3).json",
+                "format": {
+                  "type": "topojson",
+                  "feature": "georef-australia-local-government-area@public"
+                }
+              },
+              "key": "properties.lga_name_long"
+            },
+            "as": "geo"
+          }
+        ],
+        "mark": {"type": "geoshape", "stroke": "grey"},
+        "encoding": {
+          "shape": {"field": "geo", "type": "geojson"},
+          "color": {
+            "field": "PopulationValue",
+            "type": "quantitative",
+            "title": "Population",
+            "scale": {
+              "type": "threshold",
+              "domain": [1000, 10000, 50000, 100000],
+              "range": ["#e5f5e0", "#a1d99b", "#74c476", "#31a354", "#006d2c"]
+            }
+          },
+          "tooltip": [
+            {"field": "Region", "type": "nominal", "title": "State/Territory"},
+            {
+              "field": "PopulationValue",
+              "type": "quantitative",
+              "title": "Population",
+              "format": ","
+            },
+            {"field": "TimePeriod", "type": "quantitative", "title": "Year"}
+          ]
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/output.json",
+          "format": {"type": "topojson", "feature": "australia-with-states_782"}
+        },
+        "mark": {
+          "type": "geoshape",
+          "stroke": "black",
+          "strokeWidth": 1.5,
+          "fill": null
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/wkiy0001/3179/refs/heads/main/output.json",
+          "format": {"type": "topojson", "feature": "australia-with-states_782"}
+        },
+        "transform": [
+          {"filter": "datum.properties.STATE_NAME == selectedState.state"}
+        ],
+        "mark": {
+          "type": "geoshape",
+          "stroke": "red",
+          "strokeWidth": 2.5,
+          "fill": null
+        }
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+          "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+        },
+        "mark": {"type": "geoshape", "fill": null, "stroke": "royalblue"}
+      },
+      {
+        "data": {
+          "values": [
+            {"state": "New South Wales", "center": [145.612793, -31.840233]},
+            {"state": "Victoria", "center": [144.9646, -37.0201]},
+            {"state": "Queensland", "center": [142.702789, -20.917574]},
+            {"state": "South Australia", "center": [136.209152, -31.5]},
+            {"state": "Western Australia", "center": [117.793221, -25.042261]},
+            {"state": "Tasmania", "center": [146.8087, -42.0409]},
+            {"state": "Northern Territory", "center": [132.550964, -19.491411]},
+            {
+              "state": "Australian Capital Territory",
+              "center": [149.0124, -35.4735]
+            }
+          ]
+        },
+        "transform": [{"filter": "datum.state == selectedState.state"}],
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "dy": -10,
+          "fontSize": 20,
+          "fontWeight": "normal",
+          "color": "red"
+        },
+        "encoding": {
+          "longitude": {"field": "center[0]", "type": "quantitative"},
+          "latitude": {"field": "center[1]", "type": "quantitative"},
+          "text": {"field": "state", "type": "nominal"}
+        }
+      }
+    ]
+  }
