@@ -20,29 +20,31 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
 
         header {
-            background-color: #1a237e;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    background-color: #1a237e;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Times New Roman', serif; /* Added serif font family for header */
+}
 
-        h1 {
-            margin: 0;
-            font-size: 3em;
-            font-weight: 700;
-        }
+h1 {
+    margin: 0;
+    font-size: 3em;
+    font-weight: 700;
+    font-family: 'Georgia', serif; /* Specific serif font for the h1 tag */
+}
 
         h2 {
             color: #1a237e;
-            font-size: 2em;
-            margin-top: 40px;
+            font-size: 2.5em;
+            margin-top: 70px;
             margin-bottom: 20px;
             text-align: center;
             font-weight: 600;
@@ -52,10 +54,20 @@
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             padding: 20px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-part2 {
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
         }
 
         .visualization,
@@ -67,21 +79,112 @@
             padding: 20px;
             background-color: #e8eaf6;
             border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
             margin-left: 20px;
             margin-right: 20px;
-            display: flex;
-            align-items: center;
-            /* Aligns vertically center */
-            justify-content: center;
-            /* Aligns horizontally center */
-            font-size: 2em;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 50px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
+            /* Larger font size */
+        }
+
+        .text-box-1 {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 450px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
+            /* Larger font size */
+        }
+        .text-box-2 {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 450px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
+            /* Larger font size */
+        }
+
+        .text-box-3 {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 50px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
+            /* Larger font size */
+        }
+
+        .text-box-4 {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 20px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
+            /* Larger font size */
+        }
+
+        .text-box-5 {
+            padding: 20px;
+            background-color: #e8eaf6;
+            border-radius: 8px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            display: block;
+            font-size: 1em;
+            line-height: 1.3;
+            min-height: 50px;
+            /* Custom styles for this box */
+            background-color: #f8e1e1;
+            /* Different background color */
+            font-size: 1.2em;
             /* Larger font size */
         }
 
         @media (max-width: 768px) {
             .dashboard-part {
-                flex-direction: row;
+                flex-direction: column;
             }
 
             .visualization,
@@ -100,75 +203,96 @@
     </header>
     <div class="container">
         <h2>Population Overview since 1980</h2>
-        <p>Australia's population growth has been influenced by significant global and
-            national events over the past century.<br> Beginning with <strong>World War I</strong> in 1914, a noticeable
-            decline in
-            population growth is observed, likely due to the impacts of war-related mobilization and fatalities.
-            <br>
-            After <strong>World War II</strong> ended in 1945, there was a rebound in population growth, which can be
-            attributed to
-            the post-war recovery, increased birth rates during the baby boom, and boosted immigration. <br>The
-            <strong>Global
-                Financial Crisis</strong> in 2008 again shows a slight decrease in population growth, reflecting the
-            economic
-            strain that could have curtailed migration and lowered birth rates. <br>Most recently, the <strong>COVID-19
-                pandemic</strong>
-            in 2020 led to a sharp and significant drop in population growth, primarily due to stringent border
-            closures and the broader impacts of the health crisis on society.
-
-        </p>
-        <div class="dashboard-part">
-            <div id="vis4" class="visualization"></div>
+        <p style="font-size: 1.5em;">Australia's population growth has been influenced by significant global and
+            national events over the past century.</p>
+            <div class="dashboard-part">
+                <div class="text-box">
+                    <p>
+                    <ol>
+                        <li><strong style="color: red;">World War I (1914):</strong> Decline due to war mobilization and fatalities.</li>
+                        <li><strong style="color: red;">Great Depression:</strong> Reduced immigration and increased unemployment slowed growth.
+                        </li>
+                        <li><strong style="color: red;">World War II (Ended in 1945):</strong> Rebound due to post-war recovery and increased
+                            immigration.</li>
+                        <li><strong style="color: red;">Global Financial Crisis (2008):</strong> Slight decrease in growth from economic strain.
+                        </li>
+                        <li><strong style="color: red;">COVID-19 Pandemic (2020):</strong> Sharp drop due to border closures and health crisis
+                            impacts.</li>
+                    </ol>
+                    </p>
+                </div>
+                <div id="vis4" class="visualization"></div>
+            </div>
 
         </div>
         <h2>Focusing on Population Trends from 2013 to 2023</h2>
-        <p>The visual representation of the average population across Australian states and territories
-            highlights the demographic distribution and variations within the region. <br><strong>New South Wales
-                (NSW)</strong> emerges
-            as the most populous state, shown in the darkest shade of green, reflecting its high population density.
-            <br>This is followed by <strong>Victoria and Queensland</strong>, which also display significant population
-            densities,
-            illustrated by their relatively darker shades.<br> In contrast, the <strong>Northern Territory and
-            Tasmania</strong> are
-                depicted with much lighter shades, indicating their lower population figures.<br>Explore the grouped bar
-                chart
-                below to gain a clearer picture of how each state’s demographics stack up.
-        </p>
         <div class="dashboard-part">
             <div id="vis1" class="visualization"></div>
+            <div class="dashboard-part2">
+                <div class="text-box-1">
+
+
+                    <p><strong>New South
+                            Wales
+                            (NSW)</strong> emerges
+                        as the most populous state, shown in the darkest shade of green, reflecting its high population
+                        density.
+                        <br><br>This is followed by <strong>Victoria and Queensland</strong>, which also display significant
+                        population
+                        densities,
+                        illustrated by their relatively darker shades.<br><br> In contrast, the <strong>Northern Territory
+                            and
+                            Tasmania</strong> are
+                        depicted with much lighter shades, indicating their lower population figures.
+                    </p>
+                </div>
+                <div class="text-box-2">
+
+                    <p>The line chart enables you to select and inspect demographic trends over key periods:
+                    <ul>
+                        <li><strong>Pre-Pandemic (2013-2019):</strong> Population growth was stable, with net overseas
+                            migration regularly surpassing natural increase.</li>
+                        <li><strong>During the Pandemic (2020-2021):</strong> A sharp decrease in net overseas
+                            migration, a result of strict border closures.</li>
+                        <li><strong>Post-Pandemic (2022-2023):</strong> Following the reopening of borders, there was a
+                            swift upsurge in net overseas migration.</li>
+                    </ul>
+
+                    </p>
+                </div>
+            </div>
         </div>
 
         <h2>Detailed State Analysis</h2>
-        <p>Australia’s capital cities tend to be younger and age more slowly than regional areas.
-            This is mainly because capital cities have historically attracted a larger share of overseas
-            migrants,
-            who tend to be younger than the overall population.
-        </p>
         <div class="dashboard-part">
+
+            <div class="text-box-4">
+                <p>The interactive map helps you to explore population of local government areas (LGAs) in a selected year and state.  The map highlights the 10 cities with the highest populations, prominently annotating them to showcase key urban centers driving demographic changes.
+                </p>
+            </div>
             <div id="vis2" class="visualization"></div>
 
-
         </div>
-        <p>Since its federation, Australia has experienced significant <strong>aging</strong> across its population,
-            marked by a
-            gradual increase in the median age from 22.5 years in 1901 to 38.4 years in 2023. Notably, females
-            have consistently outnumbered males since 1978,
-            reflecting broader demographic trends.</p>
+
         <div class="dashboard-part">
             <div id="vis5" class="visualization"></div>
+            <div class="text-box-5">
+                <p>Since its federation, Australia has experienced significant <strong>aging</strong> across its
+                    population,
+                    marked by a gradual increase in the median age from 35 years in 2013 to 38.4 years in 2023.
+                    Nationally,
+                    females have outnumbered males.
+                </p>
+            </div>
+          
         </div>
-        <p><strong>Net overseas migration</strong> was the major contributor to change in most states, New South Wales,
-            Victoria, Queensland, South Australia, Western Australia, Tasmania and the Australian Capital Territory.
-            natural increase was the major contributor to change in the Northern Territory.
-        </p>
-        <div class="dashboard-part">
-            <div id="vis3" class="visualization"></div>
-        </div>
+
+
 
 
         <div class="dashboard-part">
             <p>Wen Sui Kiyu<br>33561699<br>Source:
-                https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/mar-2024<br>10/10/2024</p>
+                https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/mar-2024/p>
         </div>
     </div>
 
